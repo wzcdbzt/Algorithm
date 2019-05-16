@@ -6,7 +6,12 @@
 using namespace std;
 int gArraySize = 0;
 
-/**********************NetherlandsFlag****************************/
+/**********************ArrayDivide2ByPivot****************************/
+/*
+给定一个数组arr，和一个数num，请把小于等于num的数放在数
+组的左边，大于num的数放在数组的右边。
+要求额外空间复杂度O(1)，时间复杂度O(N)
+*/
 void swap(int arr[], int i, int j) {
 	if (i == j)//i==j时会令元素变成0
 		return;
@@ -15,65 +20,42 @@ void swap(int arr[], int i, int j) {
 	arr[i] = arr[i] ^ arr[j];
 }
 
-/*_________________________________________________________________
- |        <x         |          =X         |         >X            |
- ———————————————————————————————————————————————————————————————————
- */
-int* Partition(int arr[], int L, int R, int p)
-{
-	int* border = new int[2];//等于x的边界
-	int less = L - 1;
-	int more = R + 1;
-	while (L < more)
-	{
-		if (arr[L] < p)
-			swap(arr, ++less, L++);
-		else if (arr[L] > p)
-			swap(arr, --more, L);
-		else
-			L++;
-	}
-	*border = less + 1;
-	*(border + 1) = more - 1;
-	return border;
-}
-/**********************NetherlandsFlag****************************/
-
-/*对数器测试
-{99, 3, 65, 5, 10}使用Partition 结果{3 5 10 65 99}
-{99, 3, 65, 5, 10}使用comparator 结果{3 5 10 99 65}
-因此这个不能用对数器比较
+/*
+思想：荷兰国旗问题的简化版
 */
-void comparator(int arr[], int n, int p)
+void ArrayDivide2ByPivot(int arr[], int n, int pivot)
 {
-	int i = 0;
-	int* help = new int[n];
+	int less = -1;
+	int l = 0;
+	while (l < n )
+	{
+		if (arr[l] <= pivot)
+			swap(arr, ++less, l++);
+		else
+			l++;
+	}
+}
 
+/**********************ArrayDivide2ByPivot****************************/
+
+//对数器测试
+//此题无法使用对数器，因为在满足题目要求的条件下，数字顺序不一样
+void comparator(int arr[], int n , int pivot)
+{
+	int* help = new int[n];
 	for (int i = 0; i < n; ++i)
 	{
-		if (arr[i] < p)
-		{
-			*(help++) = arr[i];
-		}
+		if (arr[i] <= pivot)
+			* help++ = arr[i];
 	}
-	for (i = 0; i < n; ++i)
+	for (int i = 0; i < n; ++i)
 	{
-		if (arr[i] == p)
-		{
-			*(help++) = arr[i];
-		}
+		if (arr[i] > pivot)
+			* help++ = arr[i];
 	}
-	for (i = 0; i < n; ++i)
+	for (int i = n-1; i>=0; --i)
 	{
-		if (arr[i] > p)
-		{
-			*(help++) = arr[i];
-		}
-	}
-	help--;
-	for (i = n - 1; i >= 0; --i)
-	{
-		arr[i] = *(help--);
+		arr[i] = *(--help);
 	}
 }
 
@@ -130,15 +112,16 @@ void printArray(int arr[], int size)
 
 int main(int argc, char** argv)
 {
-	int testTime = 5000;
 	int maxSize = 100;
 	int maxValue = 100;
-	bool succeed = true;
-
-	int* arr = generateRandomArray(maxSize, maxValue);
-	printArray(arr, gArraySize);
-	Partition(arr, 0, gArraySize - 1, 55);
-	printArray(arr, gArraySize);
+	int* arr1 = generateRandomArray(maxSize, maxValue);
+	int* arr2 = copyArray(arr1);
+	ArrayDivide2ByPivot(arr1, gArraySize,55);
+	comparator(arr2, gArraySize,55);
+	cout << "快速算法的结果：" << endl;
+	printArray(arr1, gArraySize);
+	cout << "慢速算法的结果：" << endl;
+	printArray(arr2, gArraySize);
 	system("pause");
 	return 0;
 }

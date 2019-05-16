@@ -7,7 +7,7 @@ using namespace std;
 int gArraySize = 0;
 
 /**********************Bubble Sort****************************/
-void swap(int arr[] , int i, int j) {
+void swap(int arr[], int i, int j) {
 	if (i == j)//i==j时会令元素变成0
 		return;
 	arr[i] = arr[i] ^ arr[j];
@@ -107,7 +107,7 @@ void printArray(int arr[], int size)
 	cout << endl;
 }
 
-int main(int argc,char** argv) 
+int main(int argc, char** argv)
 {
 	int testTime = 5000;
 	int maxSize = 1000;
@@ -128,7 +128,7 @@ int main(int argc,char** argv)
 			break;
 		}
 	}
-	cout<<(succeed ? "Nice!\n":"Fucking fucked!\n");
+	cout << (succeed ? "Nice!\n" : "Fucking fucked!\n");
 	system("pause");
 	return 0;
 }

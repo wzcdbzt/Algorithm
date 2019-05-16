@@ -21,13 +21,13 @@ void swap(int arr[], int i, int j) {
 */
 void SelectionSort(int arr[], int n)
 {
-	if (arr == NULL || n < 2) 
+	if (arr == NULL || n < 2)
 	{
 		return;
 	}
-	for (int i = 0; i <n; ++i) {//i~N-1选一个最小的
+	for (int i = 0; i < n; ++i) {//i~N-1选一个最小的
 		int minIndex = i;
-		for (int j = i+1; j <n; ++j) {
+		for (int j = i + 1; j < n; ++j) {
 			minIndex = arr[j] < arr[minIndex] ? j : minIndex;
 		}
 		swap(arr, i, minIndex);

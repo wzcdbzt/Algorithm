@@ -17,14 +17,15 @@ void swap(int arr[], int i, int j) {
 	arr[i] = arr[i] ^ arr[j];
 }
 
-void quickSort(int arr[],int n) {
+//扮寂鹸墫業O(N*logN)��駆翌腎寂鹸墫業O(logN)
+void quickSort(int arr[], int n) {
 	if (arr == NULL || n < 2) {
 		return;
 	}
 	quickSort(arr, 0, n - 1);
 }
 
-void quickSort(int arr[] , int L, int R) {
+void quickSort(int arr[], int L, int R) {
 	if (L < R) {
 		unsigned seed = time(0);
 		srand(seed);
@@ -32,16 +33,10 @@ void quickSort(int arr[] , int L, int R) {
 		swap(arr, (int)(rand() % (R - L + 1) + L), R);
 		int* border = Partition(arr, L, R);
 		quickSort(arr, L, *border - 1);
-		quickSort(arr, *(border+1) + 1, R);
+		quickSort(arr, *(border + 1) + 1, R);
 	}
 }
 
-
-/*
-  _________________________________________________________________
- |        <x         |          =X         |         >X            |
-  ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
- */
 int* Partition(int arr[], int L, int R)
 {
 	int* border = new int[2];//吉噐x議円順
@@ -142,7 +137,7 @@ int main(int argc, char** argv)
 			printArray(arr1, gArraySize);
 			break;
 		}
-		
+
 	}
 	cout << (succeed ? "Nice!\n" : "Fucking fucked!\n");
 	system("pause");
